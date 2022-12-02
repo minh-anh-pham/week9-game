@@ -88,6 +88,8 @@ function addCreature (scope) {
     // set collision box
     //setSize: {width: 5, height: 5, center: true},
   });
+  // game.physics.add.existing(creatureGroup);
+  // creatureGroup.setAllChildren("setSize", {width: 5, height: 5, center: true});
 
   octopus = game.physics.add.sprite(Phaser.Math.Between(0, windowWidth), windowHeight, "creatures");
   squid = game.physics.add.sprite(Phaser.Math.Between(0, windowWidth), windowHeight, "creatures");
@@ -97,6 +99,14 @@ function addCreature (scope) {
   puffer = game.physics.add.sprite(Phaser.Math.Between(0, windowWidth), windowHeight, "creatures");
   crab = game.physics.add.sprite(Phaser.Math.Between(0, windowWidth), windowHeight, "creatures");
 
+  octopus.setSize(25, 25, true);
+  squid.setSize(25, 35, true);
+  blobfish.setSize(25, 25, true);
+  shark.setSize(25, 35, true);
+  worm.setSize(25, 25, true);
+  puffer.setSize(25, 25, true);
+  crab.setSize(30, 30, true);
+
   creatureGroup.add(octopus);
   creatureGroup.add(squid);
   creatureGroup.add(blobfish);
@@ -104,8 +114,6 @@ function addCreature (scope) {
   creatureGroup.add(worm);
   creatureGroup.add(puffer);
   creatureGroup.add(crab);
-
-  creatureGroup.setSize(5, 5, true);
 
   game.physics.add.overlap(torch, creatureGroup, illuminate, null, this);
 
@@ -199,7 +207,7 @@ function create () {
   // can't go off-screen
   player.setCollideWorldBounds(true);
   // set collision box
-  player.setSize(40, 40, true);
+  player.setSize(30, 40, true);
 
   // light circle
   torch = this.add.circle(200, 200, 80, 0xffffff);
@@ -340,10 +348,23 @@ function update () {
   puffer.anims.play("puffer", true);
   crab.anims.play("crab", true);
 
+
+  // make sprite move slower
+  // (wait 200ms before playing next frame)
+  octopus.anims.msPerFrame  = 200;
+  squid.anims.msPerFrame  = 200;
+  blobfish.anims.msPerFrame  = 200;
+  shark.anims.msPerFrame  = 200;
+  worm.anims.msPerFrame  = 200;
+  puffer.anims.msPerFrame  = 200;
+  crab.anims.msPerFrame  = 200;
+
   if (cursors.up.isDown) {
     brighten();
     player.setVelocityX(0);
-    player.setVelocityY(-20);
+    player.setVelocityY(-30);
+    // collision box
+    player.setSize(20, 48, true);
     // if facing right and first spawn
     // --> upwards still facing right
     if (player.flipX === false) {
@@ -359,7 +380,9 @@ function update () {
   else if (cursors.down.isDown) {
     dim();
     player.setVelocityX(0);
-    player.setVelocityY(20);
+    player.setVelocityY(30);
+    // collision box
+    player.setSize(20, 48, true);
     // if facing left & first spawn
     if (player.flipX === true) {
       player.angle = 270;
@@ -371,21 +394,35 @@ function update () {
     player.anims.play("down", true);
   }
   else if (cursors.left.isDown) {
-    player.setVelocityX(-20);
+    player.setVelocityX(-30);
     player.setVelocityY(0);
+    // collision box
+    player.setSize(48, 15, true);
     // face left
     player.flipX = true;
     player.angle = 0;
     player.anims.play("left", true);
   }
   else if (cursors.right.isDown) {
-    player.setVelocityX(20);
+    player.setVelocityX(30);
     player.setVelocityY(0);
+    // collision box
+    player.setSize(48, 15, true);
     player.flipX = false;
     player.angle = 0;
     player.anims.play("right", true);
   }
-  else if (cursors.space.isDown) {
+  else { // stay idle
+    player.flipY = false;
+    player.angle = 0;
+    player.anims.play("idle", true);
+    player.setVelocityX(0);
+    player.setVelocityY(20);
+    // collision box
+    player.setSize(30, 40, true);
+  }
+
+  if (cursors.space.isDown) {
     console.log("pressing space");
     // this.lights.enable();
     // this.lights.setAmbientColor(0x555555);
@@ -395,12 +432,5 @@ function update () {
     torch.setAlpha(0.2);
     torch.x = player.x;
     torch.y = player.y;
-  }
-  else { // stay idle
-    player.flipY = false;
-    player.angle = 0;
-    player.anims.play("idle", true);
-    player.setVelocityX(0);
-    player.setVelocityY(20);
   }
 }
