@@ -29,8 +29,8 @@ If you bump into a sea creature, it is game over. Refresh the browser to start a
 
 Background image: [Sweet](https://melonchalks.itch.io/under-the-waves-bg?download).
 
-Diver spritesheets: [Ansimuz] (https://ansimuz.itch.io/underwater-diving).
+Diver spritesheets: [Ansimuz](https://ansimuz.itch.io/underwater-diving).
 
-Music: [Pascal Belisle] (https://soundcloud.com/pascalbelisle).
+Music: [Pascal Belisle](https://soundcloud.com/pascalbelisle).
 
-Sea creatures spritesheets: [pixel_emm] (https://pixel-emm.itch.io/deep-sea-creatures).
+Sea creatures spritesheets: [pixel_emm](https://pixel-emm.itch.io/deep-sea-creatures).
