@@ -135,6 +135,7 @@ function preload () {
   this.load.spritesheet("horizontal", "./assets/player-swimming.png", {frameWidth: 80, frameHeight: 80});
   this.load.spritesheet("vertical", "./assets/player-rush.png", {frameWidth: 80, frameHeight: 80});
   this.load.spritesheet("creatures", "./assets/creatures.png", {frameWidth: 48, frameHeight: 48});
+  this.load.audio("theme", "./assets/cave.ogg");
 
   // arrow keys
   cursors = this.input.keyboard.createCursorKeys();
@@ -146,6 +147,9 @@ function create () {
   const creatureNames = [
     "octopus", "transparent", "eel", "isopod", "purple", "squid", "blobfish", "shark", "crab", "angler", "fangtooth", "orb", "green", "yellow", "prawn", "spider", "bulb", "air", "ghost", "viper", "coral", "pincers", "blue", "snake", "antennas", "mollusk", "puffer", "jaw", "worm", "teeth", "normie"
   ];
+
+  const music = this.sound.add("theme");
+  music.play();
 
   octopus = this.physics.add.sprite(0, 0, "creatures");
   squid = this.physics.add.sprite(0, 0, "creatures");
